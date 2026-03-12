@@ -1,4 +1,4 @@
-# THis project utilises the following Fortune 500 data
+# This project utilises the following Fortune 500 data
 
 CREATE TABLE fortune_companies (
     company_id INTEGER PRIMARY KEY,
@@ -58,15 +58,16 @@ VALUES
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
 
--- 
--- 1. [filter using WHERE with AND, OR, IN, or NOT IN]
+-- #For this project, I used SQL to query the Fortune 500 database to get information about the companies
+
+-- 1. Which companies and industries had the most perks, using the following [filter using WHERE with AND, OR, IN, or NOT IN]
 SELECT company_name, industry, paid_time_off_days
 FROM fortune_companies
 WHERE healthcare_benefits = 1
 AND paid_time_off_days >20
 ORDER BY paid_time_off_days DESC
 ;
--- 2. [calculation and alias]
+-- 2. The total revenue of each industry utilising [calculation and alias]
 SELECT industry,
 SUM(revenue) AS total_revenue
 FROM fortune_companies
@@ -74,7 +75,7 @@ GROUP BY industry
 ORDER BY SUM(revenue) DESC
 ;
 
--- 3. [CASE]
+-- 3. The level of revenue for each industry using [CASE]
 SELECT industry, SUM(revenue) AS total_revenue
 , CASE
 WHEN SUM(revenue) >2000 THEN 'Very High revenue'
@@ -86,14 +87,14 @@ FROM fortune_companies
 GROUP BY industry
 ORDER BY SUM(revenue) DESC
 ;
--- 4. [HAVING]
+-- 4. The average employee retention of industries with healthcare benefits [HAVING]
 SELECT industry, avg_employee_tenure, healthcare_benefits
 FROM fortune_companies
 GROUP BY industry
 HAVING healthcare_benefits = 1
 ORDER BY avg_employee_tenure DESC
 ;
--- 5. [up to me!]
+-- 5. The total revenue of each industry
 SELECT industry,
 SUM(revenue) AS total_revenue, ROUND (SUM(revenue),2) AS rounded_revenue
 FROM fortune_companies
